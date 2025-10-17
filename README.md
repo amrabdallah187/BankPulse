@@ -1,50 +1,46 @@
-# BankPulse: Real-Time Economic & Banking Data Platform
+# BankPulse: An End-to-End Data Analytics Platform
 
 ### 🧠 Overview
 
-BankPulse is an end-to-end **data engineering and analytics platform** designed to integrate, validate, and analyze real-world **banking and economic data** using modern enterprise tools. The project combines **Snowflake**, **Denodo Express**, **Great Expectations**, and **Tableau Public** to build a scalable data infrastructure, while an **AI-powered chatbot** enables natural-language data exploration.
+BankPulse is a comprehensive data engineering and analytics platform designed to ingest, validate, store, and analyze real-world financial and economic data. This project demonstrates a full data lifecycle, from raw API extraction to an interactive, AI-powered chatbot for natural language querying.
 
-This project demonstrates how to unify **data engineering**, **data quality**, and **data science** concepts into one professional-grade system — using only **free tools** and **public datasets**.
+The architecture combines a modern cloud data warehouse (**Snowflake**), a powerful data virtualization layer (**Denodo Express**), and a polished BI dashboard (**Tableau Public**). A key feature is the custom-built validation framework using **Pydantic** within Python scripts, ensuring high-quality data before it enters the warehouse. The project culminates in a **Streamlit** web application powered by **Google's Gemini** model, allowing for intuitive, conversational data exploration.
 
----
+<img width="1920" height="1080" alt="Screenshot (291)" src="https://github.com/user-attachments/assets/810cd98c-3794-488c-a3b9-6900e53efe50" />
 
-### 🎯 Objectives
 
-* Ingest and integrate real macroeconomic and financial data from **public APIs and Kaggle datasets**.
-* Enforce **data validation** and quality assurance using **Great Expectations**.
-* Store and process clean data in **Snowflake**.
-* Build a **virtualized data layer** in **Denodo Express** for unified semantic access.
-* Create **interactive dashboards** in **Tableau Public** to visualize key indicators.
-* Implement an **AI Chatbot Data Detective** (LangChain + Streamlit) to query the data in natural language.
-* Automate the entire workflow with **Denodo Scheduler**.
+### 🎯 Key Accomplishments
 
----
+* **Ingested and integrated** real-world data from public APIs (Frankfurter, World Bank) and Kaggle datasets.
+* **Built a robust, in-script validation framework** using Pydantic to enforce strict data schemas, types, and quality rules during ingestion.
+* **Stored and managed** clean, structured data in a **Snowflake** cloud data warehouse.
+* **Developed a unified virtual data layer** in **Denodo Express**, joining disparate datasets without data replication.
+* **Created an interactive, multi-part dashboard** in **Tableau Public** to visualize macroeconomic trends and credit risk factors.
+* **Implemented an AI-powered Chatbot** using Streamlit, LangChain, and **Google's Gemini model** to query the Snowflake warehouse in natural language.
+* **Automated data pipeline tasks** by creating scheduled cache-refreshing jobs in the **Denodo Scheduler**.
 
 ### 🏗️ Architecture
 
 ```
-  External APIs (World Bank, IMF, ExchangeRate.host, Yahoo Finance, Kaggle)
-             │
-             ▼
-     Python Ingestion Scripts
-     (fetch → clean → validate → load)
-             │
-             ▼
-     Great Expectations Validation
-             │
-             ▼
-     Snowflake Warehouse
-     (Raw → Clean → Aggregated Tables)
-             │
-             ▼
-     Denodo Express Virtualization Layer
-     (Wrappers → Base Views → Derived Views)
-             │
-        ┌────┴────┐
-        │         │
-        ▼         ▼
-   Tableau Public   Chatbot (Streamlit + LangChain)
-   (Dashboards)     (Natural-Language Querying)
+       External Sources (APIs, Kaggle)
+               │
+               ▼
+       Python Ingestion & Validation Scripts
+       (fetch → clean → validate with Pydantic → load)
+               │
+               ▼
+       Snowflake Cloud Data Warehouse
+       (STAGING Schema)
+               │
+               ▼
+       Denodo Express Virtualization Layer
+       (Base Views → Derived Views)
+               │
+          ┌────┴────┐
+          │         │
+          ▼         ▼
+   Tableau Public    Chatbot (Streamlit + LangChain)
+   (Dashboards)       (Natural Language Querying)
 ```
 
 ---
@@ -54,7 +50,7 @@ This project demonstrates how to unify **data engineering**, **data quality**, a
 | Layer                    | Tool                  | Purpose                        |
 | ------------------------ | --------------------- | ------------------------------ |
 | Data Ingestion           | Python                | Collect API & CSV data         |
-| Data Validation          | Great Expectations    | Ensure data quality            |
+| Data Validation          | Pydantic              | In-script data validation.     |
 | Data Warehouse           | Snowflake             | Centralized clean data storage |
 | Virtualization           | Denodo Express        | Data federation and modeling   |
 | Orchestration            | Denodo Scheduler      | Job automation & refreshes     |
@@ -67,60 +63,66 @@ This project demonstrates how to unify **data engineering**, **data quality**, a
 ### 🌍 Data Sources
 
 * **World Bank API** – GDP, inflation, interest rate, and macro indicators.
-* **ExchangeRate.host API** – Historical and live FX rates (USD, EGP, EUR, etc.).
+* **Frankfurter API** – Historical and live FX rates (USD, EGP, EUR, etc.).
 * **Kaggle Credit Risk Dataset** – Real loan and repayment data for risk analytics.
-* **Yahoo Finance API** – Historical stock and market data.
-* **IMF API** – Banking and monetary statistics.
 
 ---
+### 🚀 Setup & Running the Project
 
-### 📊 Key Features
+1.  **Clone the Repository:**
+    ```bash
+    git clone [https://github.com/amrabdallah187/BankPulse.git](https://github.com/amrabdallah187/BankPulse.git)
+    cd BankPulse
+    ```
 
-* **Data Virtualization:** Unify multiple APIs and warehouse tables via Denodo.
-* **Data Quality Layer:** Implement automated validation checkpoints with Great Expectations.
-* **Scalable Cloud Warehouse:** Store curated, queryable datasets in Snowflake.
-* **Interactive Analytics:** Build dashboards tracking GDP, inflation, FX volatility, and credit risk.
-* **AI-Powered Exploration:** Ask questions like *“Show Egypt’s inflation trend from 2015–2024”* or *“Compare USD/EGP volatility with GDP growth.”*
-* **Automated Refresh:** Schedule recurring data pulls, validations, and cache refreshes.
+2.  **Create and Activate Virtual Environment:**
+    ```bash
+    python3 -m venv venv
+    source venv/bin/activate
+    ```
 
----
+3.  **Install Dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+4.  **Set Up Credentials:**
+    This project requires API keys and credentials for Snowflake and Google AI. Set them as environment variables in your terminal session.
+    **Required Variables:**
+    ```
+    SNOWFLAKE_USER
+    SNOWFLAKE_PASSWORD
+    SNOWFLAKE_ACCOUNT
+    SNOWFLAKE_WAREHOUSE
+    SNOWFLAKE_DATABASE
+    SNOWFLAKE_SCHEMA
+    GOOGLE_API_KEY
+    ```
+
+5.  **Run the Chatbot Application:**
+    ```bash
+    streamlit run scripts/app.py
+    ```
 
 ### 📁 Repository Structure
 
 ```
 BankPulse/
-├─ data/                    # Sample CSVs & API extracts
-├─ scripts/                 # Python ingestion & loading scripts
-│   ├─ fetch_fx_data.py
-│   ├─ fetch_worldbank_data.py
-│   ├─ load_to_snowflake.py
-│   └─ run_validation.py
-├─ denodo/                  # View definitions & connection configs
-│   ├─ base_views.sql
-│   ├─ derived_views.sql
-│   └─ scheduler_jobs.md
-├─ chatbot_app/             # Streamlit/FastAPI chatbot
-│   ├─ app.py
-│   └─ utils/
-├─ docs/                    # Architecture diagrams & Tableau screenshots
-│   ├─ architecture.png
-│   └─ tableau_dashboards/
-├─ requirements.txt         # Python dependencies
-└─ README.md                # Project documentation
+├── data/
+│   └── raw/                # Holds the raw CSV files after ingestion
+├── scripts/                # All Python scripts for the project
+│   ├── fetch_fx_data.py
+│   ├── fetch_worldbank_data.py
+│   ├── fetch_kaggle_data.py
+│   ├── validate_fx.py
+│   ├── validate_worldbank.py
+│   ├── validate_credit_risk.py
+│   ├── load_to_snowflake.py
+│   └── app.py              # The Streamlit chatbot application
+├── docs/                     # Tableau dashboard screenshots
+├── requirements.txt          # Python dependencies
+└── README.md                 # Project documentation
 ```
-
----
-
-### 🧠 Learning Focus
-
-This project is built to strengthen your hands-on understanding of:
-
-* **Data pipelines** and **ETL orchestration**
-* **Data virtualization & modeling** using enterprise tools
-* **Data quality frameworks** (Great Expectations)
-* **Cloud data engineering** with Snowflake
-* **BI & storytelling** through Tableau
-* **Natural language interfaces** for data analytics
 
 ---
 
