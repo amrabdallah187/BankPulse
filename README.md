@@ -19,6 +19,14 @@ The architecture combines a modern cloud data warehouse (**Snowflake**), a power
 * **Implemented an AI-powered Chatbot** using Streamlit, LangChain, and **Google's Gemini model** to query the Snowflake warehouse in natural language.
 * **Automated data pipeline tasks** by creating scheduled cache-refreshing jobs in the **Denodo Scheduler**.
 
+<img width="960" height="742" alt="Screenshot 2025-10-18 021220" src="https://github.com/user-attachments/assets/600175ac-61e8-419a-a5f0-187089c42cbf" />
+
+<img width="1917" height="429" alt="Screenshot 2025-10-15 161842" src="https://github.com/user-attachments/assets/8d31909c-6b98-4204-8faf-877559d01d7b" />
+
+
+
+
+
 ### 🏗️ Architecture
 
 ```
